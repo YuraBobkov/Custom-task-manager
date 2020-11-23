@@ -1,0 +1,38 @@
+{
+  "root": true,
+  "settings": {
+    "import/resolver": { "typescript": {} }
+  },
+  "extends": [
+    "eslint:recommended",
+    "google",
+    "react-app",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "parserOptions": {
+    "sourceType": "script"
+  },
+  "rules": {
+    "strict": ["error", "global"],
+    "require-jsdoc": "off",
+    "camelcase": "off",
+    "no-console": 1,
+    "react/react-in-jsx-scope": "off",
+    "jsx-a11y/anchor-is-valid": "off"
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": ["**/*.d.ts"],
+      "rules": {
+        "spaced-comment": "off"
+      }
+    }
+  ]
+}
