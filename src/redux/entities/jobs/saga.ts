@@ -5,7 +5,7 @@ import { saveEntities } from '../actions';
 import api from './api';
 import { FIND_JOBS } from './consts';
 
-function* findJobs({ payload: id }: PayloadAction) {
+function* findJobs({ payload: id }: PayloadAction<string>) {
   const data = yield call(api.find, { processId: id });
 
   yield put(saveEntities(data));

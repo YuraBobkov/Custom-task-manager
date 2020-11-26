@@ -22,8 +22,8 @@ export const createApi = <T>(name: string) => {
     //   return axios.post(`${url}/${id}`).then((res) => res.data);
     // },
 
-    // deleteRecord(id: string): Promise<T> {
-    //   return axios.delete(`${url}/${id}`).then((res) => res.data);
-    // },
+    deleteRecord(id: string): Promise<T> {
+      return axios.delete(`${url}/${id}`).then((res) => res.data);
+    },
   });
 };

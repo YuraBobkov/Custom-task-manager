@@ -7,7 +7,9 @@ import adapter from './adapter';
 export default createSlice({
   name: 'entities/processes',
   initialState: adapter.getInitialState(),
-  reducers: {},
+  reducers: {
+    deleteProcess: adapter.removeOne,
+  },
   extraReducers: (builder) => {
     builder.addCase(
       saveEntities.type,
