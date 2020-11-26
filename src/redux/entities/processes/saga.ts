@@ -35,7 +35,7 @@ function* watchCreateProcess() {
 
 function* deleteProcess({ payload: id }: PayloadAction<string>) {
   yield call(api.deleteRecord, id);
-  put(slice.actions.deleteProcess(id));
+  yield put(slice.actions.deleteProcess(id));
 }
 
 function* watchDeleteProcess() {
