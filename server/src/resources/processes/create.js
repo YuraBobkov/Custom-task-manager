@@ -14,6 +14,8 @@ function getRandomIntInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+const jobStatuses = ['running', 'succeed', 'failed'];
+
 const create = async (ctx) => {
   const processesCollection = await getCollection('processes');
   const jobsCollection = await getCollection('jobs');
@@ -28,12 +30,12 @@ const create = async (ctx) => {
   };
 
   const jobs = pipe(
-    range(1, jobsCount),
+    range(1, jobsCount + 1),
     map(() => ({
       _id: ObjectID(),
       processId: process._id,
       name: faker.name.jobType(),
-      status: 'failed',
+      status: jobStatuses[getRandomIntInclusive(0, 2)],
     })),
   );
 
