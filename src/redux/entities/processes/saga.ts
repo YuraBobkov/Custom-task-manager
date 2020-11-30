@@ -7,21 +7,21 @@ import {
   takeLatest,
   takeLeading,
 } from 'redux-saga/effects';
+import { createTaskSaga } from 'src/utils/redux-saga-tasks';
 
 import { saveEntities } from '../actions';
 import api from './api';
-import slice from './slice';
 import { CREATE_PROCESS, DELETE_PROCESS, FIND_PROCESSES } from './consts';
+import slice from './slice';
 
 function* findProcesses() {
   const data = yield call(api.find);
 
   yield put(saveEntities(data));
-  return data;
 }
 
 function* watchFindProcesses() {
-  yield takeEvery(FIND_PROCESSES, findProcesses);
+  yield takeEvery(FIND_PROCESSES, createTaskSaga(findProcesses));
 }
 
 function* createProcess() {
@@ -39,7 +39,7 @@ function* deleteProcess({ payload: id }: PayloadAction<string>) {
 }
 
 function* watchDeleteProcess() {
-  yield takeLeading(DELETE_PROCESS, deleteProcess);
+  yield takeLeading(DELETE_PROCESS, createTaskSaga(deleteProcess));
 }
 
 function* casesSaga() {

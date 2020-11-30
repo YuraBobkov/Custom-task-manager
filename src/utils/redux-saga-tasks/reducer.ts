@@ -1,7 +1,10 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { FAILURE, START, SUCCESS } from './types';
 
-const reducer = (state = {}, { type, payload }: PayloadAction<any>) => {
+const reducer = (
+  state: { [key: number]: any } = {},
+  { type, payload }: PayloadAction<any>,
+) => {
   if (type === START) {
     return {
       ...state,

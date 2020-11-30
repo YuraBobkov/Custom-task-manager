@@ -1,7 +1,7 @@
-import { IconButton, TableCell, TableRow } from '@material-ui/core';
-import { KeyboardArrowDown, KeyboardArrowUp } from '@material-ui/icons';
+import { TableCell, TableRow } from '@material-ui/core';
 import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
 import RemoveButton from 'src/components/RemoveButton';
 import { useTypedSelector } from 'src/redux';
 import { deleteProcess } from 'src/redux/entities/processes/actions';
@@ -14,7 +14,6 @@ type Props = {
 const ContentRow: FC<Props> = ({ id }) => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
-
   const handleDeleteProcess = useCallback(() => dispatch(deleteProcess(id)), [
     dispatch,
     id,
@@ -25,17 +24,8 @@ const ContentRow: FC<Props> = ({ id }) => {
   return (
     <>
       <TableRow hover selected={open}>
-        <TableCell padding="none">
-          <IconButton
-            aria-label="expand row"
-            size="small"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
-          </IconButton>
-        </TableCell>
         <TableCell>{process.name}</TableCell>
-        <TableCell>{process.jobsCount}</TableCell>
+        <TableCell align="center">{process.jobsCount}</TableCell>
         <TableCell padding="none" align="right">
           <RemoveButton action={handleDeleteProcess} />
         </TableCell>

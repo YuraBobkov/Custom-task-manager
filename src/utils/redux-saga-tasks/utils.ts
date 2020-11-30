@@ -4,7 +4,7 @@ export type ActionType = {
   meta?: { taskId: number };
 };
 
-const createIdGenerator = (): (() => number | number) => {
+const createIdGenerator = (): (() => number) => {
   let id = 0;
 
   return () => {
@@ -18,11 +18,9 @@ export const getId = createIdGenerator();
 
 export const createAction = (
   type: string,
-  createMeta: () => { taskId: number },
-) => (payload: any): ActionType => {
-  const action: ActionType = {
-    type,
-  };
+  createMeta?: () => { taskId: number },
+) => (payload?: any): ActionType => {
+  const action: ActionType = { type, payload: null };
 
   if (payload !== undefined) {
     action.payload = payload;

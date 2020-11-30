@@ -1,20 +1,22 @@
-const getTask = (state, id) => state.tasks[id];
+import { RootState } from 'src/redux';
 
-const createGetProp = (key) => (state, id) => {
+const getTask = (state: RootState, id: number) => state.tasks[id];
+
+const createGetProp = (key: string) => (state: RootState, id: number) => {
   const task = getTask(state, id);
 
   return task ? task[key] : null;
 };
 
-const createGetBoolProp = (key) => {
+const createGetBoolProp = (key: string) => {
   const getProp = createGetProp(key);
 
-  return (state, id) => getProp(state, id) || false;
+  return (state: RootState, id: number) => getProp(state, id) || false;
 };
 
 export const getIsFinished = createGetBoolProp('finished');
 
-export const getIsRunning = (state, id) =>
+export const getIsRunning = (state: RootState, id: number) =>
   getTask(state, id) ? !getIsFinished(state, id) : false;
 
 export const getData = createGetProp('data');
