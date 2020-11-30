@@ -1,6 +1,5 @@
 import { TableCell, TableRow } from '@material-ui/core';
-import React, { FC, useCallback, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { FC, useCallback } from 'react';
 
 import RemoveButton from 'src/components/RemoveButton';
 import { useTypedSelector } from 'src/redux';
@@ -12,18 +11,13 @@ type Props = {
 };
 
 const ContentRow: FC<Props> = ({ id }) => {
-  const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
-  const handleDeleteProcess = useCallback(() => dispatch(deleteProcess(id)), [
-    dispatch,
-    id,
-  ]);
+  const handleDeleteProcess = useCallback(() => deleteProcess(id), [id]);
 
   const process = useTypedSelector((state) => selectById(state, id))!;
 
   return (
     <>
-      <TableRow hover selected={open}>
+      <TableRow>
         <TableCell>{process.name}</TableCell>
         <TableCell align="center">{process.jobsCount}</TableCell>
         <TableCell padding="none" align="right">

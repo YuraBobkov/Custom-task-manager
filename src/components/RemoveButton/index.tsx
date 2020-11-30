@@ -9,13 +9,22 @@ import {
 } from '@material-ui/core';
 import { Delete } from '@material-ui/icons';
 import React, { FC, Fragment, useCallback, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useTypedSelector } from 'src/redux';
+import { getIsRunning } from 'src/utils/redux-saga-tasks';
+import { ActionType } from 'src/utils/redux-saga-tasks/utils';
 
 type Props = {
-  action(): void;
+  action: () => ActionType;
 };
 
 const RemoveButton: FC<Props> = ({ action }) => {
+  const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
+  const [taskId, setTaskId] = useState<number | null>(null);
+
+  const isRunning = useTypedSelector((state) => getIsRunning(state, taskId!));
 
   const handleOpen = useCallback((event) => {
     event.stopPropagation();
@@ -30,9 +39,11 @@ const RemoveButton: FC<Props> = ({ action }) => {
   const handleSubmit = useCallback(
     (event) => {
       event.stopPropagation();
-      action();
+      const { meta } = dispatch(action());
+
+      setTaskId(meta!.taskId);
     },
-    [action],
+    [dispatch, action],
   );
 
   return (
@@ -52,7 +63,7 @@ const RemoveButton: FC<Props> = ({ action }) => {
           <Button onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={handleSubmit} color="primary">
+          <Button onClick={handleSubmit} color="primary" disabled={isRunning}>
             Delete
           </Button>
         </DialogActions>
