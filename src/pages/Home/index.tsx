@@ -1,10 +1,11 @@
-import { Button } from '@material-ui/core';
-import React, { FC, useCallback } from 'react';
+import { Box, Button } from '@material-ui/core';
+import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Table from 'src/components/Table';
 import { useTypedSelector } from 'src/redux';
 import { createProcess } from 'src/redux/entities/processes/actions';
 import { selectIds } from 'src/redux/entities/processes/selectors';
+import { getIsRunning } from 'src/utils/redux-saga-tasks';
 
 import ContentRow from './ContentRow';
 import HeadRow from './HeadRow';
@@ -13,18 +14,29 @@ import { Page } from './styled';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
+  const [taskId, setTaskId] = useState<number | null>(null);
+  const inProgress = useTypedSelector((state) => getIsRunning(state, taskId!));
+
   const { isLoading } = useData();
   const processesIds = useTypedSelector(selectIds);
 
-  const handleCreateProcess = useCallback(() => dispatch(createProcess()), [
-    dispatch,
-  ]);
+  const handleCreateProcess = useCallback(() => {
+    const { meta } = dispatch(createProcess());
+    setTaskId(meta!.taskId);
+  }, [dispatch]);
 
   return (
     <Page>
-      <Button variant="contained" color="primary" onClick={handleCreateProcess}>
-        Create Process
-      </Button>
+      <Box clone mb={2}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={inProgress}
+          onClick={handleCreateProcess}
+        >
+          Create Process
+        </Button>
+      </Box>
 
       <Table
         aria-label="table"

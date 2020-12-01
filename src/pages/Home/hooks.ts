@@ -6,7 +6,7 @@ import { getData, getIsRunning } from 'src/utils/redux-saga-tasks';
 
 export const useData = () => {
   const dispatch = useDispatch();
-  const [taskId, setTaskId] = useState<number | null>();
+  const [taskId, setTaskId] = useState<number | null>(null);
 
   useEffect(() => {
     const { meta } = dispatch(findProcesses());

@@ -30,7 +30,7 @@ function* createProcess() {
 }
 
 function* watchCreateProcess() {
-  yield takeLatest(CREATE_PROCESS, createProcess);
+  yield takeLatest(CREATE_PROCESS, createTaskSaga(createProcess));
 }
 
 function* deleteProcess({ payload: id }: PayloadAction<string>) {
