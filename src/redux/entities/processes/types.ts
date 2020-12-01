@@ -3,4 +3,5 @@ export type Process = {
   name: String;
   startTime: number;
   jobsCount: number;
+  status: 'pending' | 'inProgress' | 'failed' | 'finished';
 };
