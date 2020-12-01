@@ -2,11 +2,14 @@
 'use strict';
 
 const { range, pipe, map } = require('remeda');
-const { ObjectID } = require('mongodb');
 const faker = require('faker');
 
 const { getCollection } = require('../../mongo');
-const { normalizeRecord } = require('../../utils/documents');
+const {
+  normalizeRecord,
+  createProcessStatus,
+} = require('../../utils/documents');
+const { ObjectID } = require('mongodb');
 
 function getRandomIntInclusive(min, max) {
   min = Math.ceil(min);
@@ -32,7 +35,6 @@ const create = async (ctx) => {
   const jobs = pipe(
     range(1, jobsCount + 1),
     map(() => ({
-      _id: ObjectID(),
       processId: process._id,
       name: faker.name.jobType(),
       status: jobStatuses[getRandomIntInclusive(0, 2)],
@@ -42,8 +44,10 @@ const create = async (ctx) => {
   const processesResponse = await processesCollection.insertOne(process);
   const jobsResponse = await jobsCollection.insertMany(jobs);
 
+  const processWithStatus = await createProcessStatus(processesResponse.ops[0]);
+
   const normalizedJobs = jobsResponse.ops.map(normalizeRecord);
-  const normalizedProcess = normalizeRecord(processesResponse.ops[0]);
+  const normalizedProcess = normalizeRecord(processWithStatus);
 
   ctx.status = 201;
   ctx.body = { processes: [normalizedProcess], jobs: normalizedJobs };
