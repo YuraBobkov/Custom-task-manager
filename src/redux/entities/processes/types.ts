@@ -1,6 +1,6 @@
 export type Process = {
   id: String;
   name: String;
-  startTime: Number;
-  jobsCount: Number;
+  startTime: number;
+  jobsCount: number;
 };

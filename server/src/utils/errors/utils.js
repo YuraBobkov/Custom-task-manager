@@ -16,9 +16,9 @@ const codeMapping = {
   [INVALID_CONTENT_TYPE]: 406,
 };
 
-const getHttpCode = code => codeMapping[code] || 400;
+const getHttpCode = (code) => codeMapping[code] || 400;
 
-const createError = data => ({
+const createError = (data) => ({
   code: getHttpCode(data.code),
   data,
 });

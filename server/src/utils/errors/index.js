@@ -10,14 +10,14 @@ const {
 } = require('./codes');
 const { createError } = require('./utils');
 
-const createQueryValidationError = errors =>
+const createQueryValidationError = (errors) =>
   createError({
     code: QUERY,
     message: 'Validation Failed',
     details: errors,
   });
 
-const createPayloadValidationError = errors =>
+const createPayloadValidationError = (errors) =>
   createError({
     code: BODY,
     message: 'Validation Failed',

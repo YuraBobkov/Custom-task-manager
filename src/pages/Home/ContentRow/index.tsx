@@ -5,6 +5,7 @@ import RemoveButton from 'src/components/RemoveButton';
 import { useTypedSelector } from 'src/redux';
 import { deleteProcess } from 'src/redux/entities/processes/actions';
 import { selectById } from 'src/redux/entities/processes/selectors';
+import { toLocalDateTime } from 'src/utils/formats';
 
 type Props = {
   id: string;
@@ -19,6 +20,7 @@ const ContentRow: FC<Props> = ({ id }) => {
     <>
       <TableRow>
         <TableCell>{process.name}</TableCell>
+        <TableCell>{toLocalDateTime(process.startTime)}</TableCell>
         <TableCell align="center">{process.jobsCount}</TableCell>
         <TableCell padding="none" align="right">
           <RemoveButton action={handleDeleteProcess} />
