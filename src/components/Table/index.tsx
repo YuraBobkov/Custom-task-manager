@@ -1,6 +1,5 @@
 import React, { FC, ElementType } from 'react';
 import {
-  CircularProgress,
   TableBody,
   TableHead,
   TableProps,
@@ -8,11 +7,8 @@ import {
   Paper,
 } from '@material-ui/core';
 
-import {
-  CircularProgressWrapper,
-  StyledTable,
-  StyledTypography,
-} from './styled';
+import { StyledTable, StyledTypography } from './styled';
+import Spinner from '../Spinner';
 
 type Props = TableProps & {
   isLoading: boolean;
@@ -29,11 +25,7 @@ const Table: FC<Props> = ({
   ...tableProps
 }) => {
   if ((isLoading && Boolean(ids)) || !ids.length) {
-    return (
-      <CircularProgressWrapper>
-        <CircularProgress />
-      </CircularProgressWrapper>
-    );
+    return <Spinner />;
   }
 
   if (!ids.length) {

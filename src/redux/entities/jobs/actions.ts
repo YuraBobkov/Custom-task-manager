@@ -1,5 +1,5 @@
-import { createAction } from '@reduxjs/toolkit';
+import { createTaskAction } from 'src/utils/redux-saga-tasks';
 
 import { FIND_JOBS } from './consts';
 
-export const findJobs = createAction<string>(FIND_JOBS);
+export const findJobs = createTaskAction(FIND_JOBS);
