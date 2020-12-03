@@ -24,11 +24,11 @@ const Table: FC<Props> = ({
   ids,
   ...tableProps
 }) => {
-  if ((isLoading && Boolean(ids)) || !ids.length) {
+  if (!ids.length) {
     return <Spinner />;
   }
 
-  if (!ids.length) {
+  if (!ids) {
     return (
       <StyledTypography variant="h5" color="textSecondary">
         No items
@@ -48,6 +48,7 @@ const Table: FC<Props> = ({
           ))}
         </TableBody>
       </StyledTable>
+      {isLoading && <Spinner />}
     </TableContainer>
   );
 };
