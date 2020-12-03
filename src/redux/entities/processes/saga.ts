@@ -14,9 +14,8 @@ import api from './api';
 import { CREATE_PROCESS, DELETE_PROCESS, FIND_PROCESSES } from './consts';
 import slice from './slice';
 
-function* findProcesses() {
-  const data = yield call(api.find);
-
+function* findProcesses({ payload: props }: { payload: object }) {
+  const data = yield call(api.find, props);
   yield put(saveEntities(data));
 }
 

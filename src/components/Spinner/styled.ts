@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const StyledSpinnerWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 32px 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
 `;

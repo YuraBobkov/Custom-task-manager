@@ -15,7 +15,7 @@ export default createSlice({
       saveEntities.type,
       (state, action: PayloadAction<Entities>) =>
         action.payload.processes
-          ? adapter.upsertMany(state, action.payload.processes)
+          ? adapter.setAll(state, action.payload.processes)
           : state,
     );
   },

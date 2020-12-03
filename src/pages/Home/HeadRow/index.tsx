@@ -1,16 +1,24 @@
-import { TableCell, TableRow } from '@material-ui/core';
+import { TableRow, TableCell } from '@material-ui/core';
 import React, { FC } from 'react';
 
-const HeadRow: FC = () => (
-  <TableRow>
-    <TableCell padding="none" align="center">
-      Status
-    </TableCell>
-    <TableCell align="left">Name</TableCell>
-    <TableCell>Start time</TableCell>
-    <TableCell align="center">Jobs count</TableCell>
-    <TableCell align="right">Actions</TableCell>
-  </TableRow>
-);
+import SortableTableCell from 'src/components/SortableTableCell';
+
+const HeadRow: FC = () => {
+  return (
+    <TableRow>
+      <TableCell padding="none" align="center">
+        Status
+      </TableCell>
+      <SortableTableCell sortName="name" align="left">
+        Name
+      </SortableTableCell>
+      <SortableTableCell sortName="startTime">Start time</SortableTableCell>
+      <SortableTableCell sortName="jobsCount" align="center">
+        Jobs count
+      </SortableTableCell>
+      <TableCell align="right">Actions</TableCell>
+    </TableRow>
+  );
+};
 
 export default HeadRow;
