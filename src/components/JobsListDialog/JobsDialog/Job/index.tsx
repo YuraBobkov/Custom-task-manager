@@ -1,3 +1,4 @@
+import { useRouterState } from '@routo/react';
 import React, { FC } from 'react';
 import { useTypedSelector } from 'src/redux';
 import { selectById } from 'src/redux/entities/jobs/selectors';
@@ -9,10 +10,12 @@ type Props = {
 };
 
 const Job: FC<Props> = ({ id }) => {
-  const job = useTypedSelector((state) => selectById(state, id));
+  const { queryParams } = useRouterState();
+
+  const job = useTypedSelector((state) => selectById(state, id))!;
 
   return (
-    <StyledLi status={job?.status}>
+    <StyledLi status={job.status} lookedJob={queryParams.name === job.name}>
       {job?.name} - <span>{job?.status}</span>
     </StyledLi>
   );

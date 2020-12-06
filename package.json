@@ -9,10 +9,12 @@
   "dependencies": {
     "@material-ui/core": "^4.11.1",
     "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.57",
     "@reduxjs/toolkit": "^1.4.0",
     "@routo/core": "^0.6.1",
     "@routo/link": "^0.6.1",
     "@routo/react": "^0.6.1",
+    "@routo/redux": "^0.6.1",
     "axios": "^0.20.0",
     "faker": "^5.1.0",
     "react": "^16.13.1",

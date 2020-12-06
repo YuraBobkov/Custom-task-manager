@@ -5,25 +5,41 @@ import { createTaskSaga } from 'src/utils/redux-saga-tasks';
 
 import { saveEntities } from '../actions';
 import api from './api';
-import { FIND_JOBS } from './consts';
+import { FIND_JOBS, FIND_JOB } from './consts';
 import { Job } from './types';
 
-function* findJobs({ payload: id }: PayloadAction<string>) {
-  const data: { jobs: Job[] } = yield call(api.find, { processId: id });
+type PayloadActionType = {
+  processId?: string;
+  name: string;
+};
+
+function* findJobs({ payload: params }: PayloadAction<PayloadActionType>) {
+  const data: { jobs: Job[] } = yield call(api.find, params || {});
 
   const jobsIds = map(data.jobs, prop('id'));
+  const jobsNames = map(data.jobs, prop('name'));
 
   yield put(saveEntities(data));
 
-  return jobsIds;
+  return { jobsIds, jobsNames };
 }
 
 function* watchFindJobs() {
   yield takeEvery(FIND_JOBS, createTaskSaga(findJobs));
 }
+function* findJob({ payload: params }: PayloadAction<PayloadActionType>) {
+  const data: { jobs: Job[] } = yield call(api.find, params || {});
+
+  return data.jobs[0];
+}
+
+function* watchFindJob() {
+  yield takeEvery(FIND_JOB, createTaskSaga(findJob));
+}
 
 function* casesSaga() {
   yield spawn(watchFindJobs);
+  yield spawn(watchFindJob);
 }
 
 export default casesSaga;

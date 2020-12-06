@@ -8,3 +8,8 @@ export const Page = styled.main`
   padding-left: 40px;
   padding-right: 40px;
 `;
+
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;

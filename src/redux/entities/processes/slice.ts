@@ -9,6 +9,7 @@ export default createSlice({
   initialState: adapter.getInitialState(),
   reducers: {
     deleteProcess: adapter.removeOne,
+    saveProcess: adapter.addOne,
   },
   extraReducers: (builder) => {
     builder.addCase(

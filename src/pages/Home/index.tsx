@@ -1,7 +1,10 @@
 import { Box, Button } from '@material-ui/core';
 import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
+
+import Autocomplete from 'src/components/Autocomplete';
 import Table from 'src/components/Table';
+
 import { useTypedSelector } from 'src/redux';
 import { createProcess } from 'src/redux/entities/processes/actions';
 import { selectIds } from 'src/redux/entities/processes/selectors';
@@ -10,7 +13,7 @@ import { getIsRunning } from 'src/utils/redux-saga-tasks';
 import ContentRow from './ContentRow';
 import HeadRow from './HeadRow';
 import { useData } from './hooks';
-import { Page } from './styled';
+import { Page, Wrapper } from './styled';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
@@ -28,16 +31,18 @@ const Home: FC = () => {
   return (
     <Page>
       <Box clone mb={2}>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={inProgress}
-          onClick={handleCreateProcess}
-        >
-          Create Process
-        </Button>
+        <Wrapper>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={inProgress}
+            onClick={handleCreateProcess}
+          >
+            Create Process
+          </Button>
+          <Autocomplete />
+        </Wrapper>
       </Box>
-
       <Table
         aria-label="table"
         ids={processesIds as string[]}

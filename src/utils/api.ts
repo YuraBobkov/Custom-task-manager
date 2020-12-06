@@ -10,17 +10,13 @@ export const createApi = <T>(name: string) => {
       return axios.get(url, { params }).then((res) => res.data);
     },
 
-    // findRecord(id: string): Promise<T> {
+    // findRecord(params?: object): Promise<T> {
     //   return axios.get(`${url}/${id}`).then((res) => res.data);
     // },
 
     createRecord(params = {}): Promise<T> {
       return axios.post(url, { params }).then((res) => res.data);
     },
-
-    // updateRecord(id: string, attrs: { [key: string]: any }): Promise<T> {
-    //   return axios.post(`${url}/${id}`).then((res) => res.data);
-    // },
 
     deleteRecord(id: string): Promise<T> {
       return axios.delete(`${url}/${id}`).then((res) => res.data);

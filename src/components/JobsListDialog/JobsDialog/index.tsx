@@ -14,10 +14,10 @@ type Props = {
 };
 
 const JobsDialog: FC<Props> = ({ id }) => {
-  const { isLoading, jobsIds } = useFindJobs(id);
+  const { isLoading, data } = useFindJobs(id);
   const process = useTypedSelector((state) => selectById(state, id));
 
-  if (isLoading || !jobsIds) {
+  if (isLoading || !data?.jobsIds) {
     return <Spinner />;
   }
 
@@ -26,7 +26,7 @@ const JobsDialog: FC<Props> = ({ id }) => {
       <DialogTitle>{process?.name} - Jobs list</DialogTitle>
       <DialogContent>
         <StyledList>
-          {jobsIds.map((id: string) => (
+          {data.jobsIds.map((id: string) => (
             <Job key={id} id={id} />
           ))}
         </StyledList>

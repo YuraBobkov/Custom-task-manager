@@ -1,11 +1,9 @@
 import { TableCellProps } from '@material-ui/core';
 import { ArrowDropDown, ArrowDropUp } from '@material-ui/icons/';
-import { useRouterState } from '@routo/react';
+import { useRouter, useRouterState } from '@routo/react';
 import React, { FC, useCallback, useState } from 'react';
 
-import router from 'src/router';
-
-import { StyledSTableCell, ContentWrapper } from './styled';
+import { ContentWrapper, StyledSTableCell } from './styled';
 import { chooseDirection } from './utils';
 
 type Props = TableCellProps & {
@@ -18,11 +16,12 @@ const iconsMapping = {
 };
 
 const SortableTableCell: FC<Props> = ({ sortName, children, ...rest }) => {
+  const router = useRouter();
   const { queryParams, id } = useRouterState();
 
-  const defaultDirection = queryParams ? queryParams[sortName] : null;
+  const defaultDirection = queryParams.sort ? queryParams.sort[sortName] : null;
 
-  const sortedFields = Object.keys(queryParams);
+  const sortedFields = queryParams.sort ? Object.keys(queryParams.sort) : [];
   const isActive = sortedFields.includes(sortName);
 
   const [sortDirection, setSortDirection] = useState<'asc' | 'des' | null>(
@@ -34,10 +33,13 @@ const SortableTableCell: FC<Props> = ({ sortName, children, ...rest }) => {
       return chooseDirection(currentDirection);
     });
 
+    const nextDirection = chooseDirection(sortDirection);
+    const query = nextDirection ? { sort: { [sortName]: nextDirection } } : {};
+
     router.push(id, {
-      queryParams: { [sortName]: chooseDirection(sortDirection) },
+      queryParams: query,
     });
-  }, [sortDirection, sortName, id]);
+  }, [sortDirection, sortName, id, router]);
 
   return (
     <StyledSTableCell {...rest} onClick={changeDirection}>
