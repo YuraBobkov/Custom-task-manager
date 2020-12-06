@@ -5,11 +5,10 @@ const {
   normalizeRecord,
   createProcessStatus,
 } = require('../../utils/documents');
-const { getQuery, prepareSortParams } = require('../../utils/ctx');
+const { prepareSortParams } = require('../../utils/ctx');
 
 const readList = async (ctx) => {
-  const query = getQuery(ctx);
-  const sortParams = query.sort ? prepareSortParams(query.sort) : {};
+  const sortParams = prepareSortParams(ctx) || {};
 
   const newProcesses = [];
   const collection = await getCollection('processes');

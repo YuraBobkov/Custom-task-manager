@@ -10,9 +10,15 @@ const readList = async (ctx) => {
   const collection = await getCollection('jobs');
   const { processId } = ctx.request.query;
 
-  const res = await collection.find({
-    processId: ObjectId(processId),
-  });
+  const findProps = processId
+    ? {
+        processId: ObjectId(processId),
+      }
+    : {};
+
+  const res = await collection.find(
+    ctx.request.query ? { ...ctx.request.query, ...findProps } : {},
+  );
 
   const items = await res.toArray();
 

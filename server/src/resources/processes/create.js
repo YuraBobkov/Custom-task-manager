@@ -27,7 +27,7 @@ const create = async (ctx) => {
 
   const process = {
     _id: ObjectID(),
-    name: faker.name.jobTitle(),
+    name: faker.commerce.productName(),
     startTime: Date.parse(faker.date.past()),
     jobsCount,
   };
@@ -36,21 +36,20 @@ const create = async (ctx) => {
     range(1, jobsCount + 1),
     map(() => ({
       processId: process._id,
-      name: faker.name.jobType(),
-      status: jobStatuses[getRandomIntInclusive(0, 2)],
+      name: faker.company.companyName(),
+      status: faker.helpers.randomize(jobStatuses),
     })),
   );
 
   const processesResponse = await processesCollection.insertOne(process);
-  const jobsResponse = await jobsCollection.insertMany(jobs);
+  await jobsCollection.insertMany(jobs);
 
   const processWithStatus = await createProcessStatus(processesResponse.ops[0]);
 
-  const normalizedJobs = jobsResponse.ops.map(normalizeRecord);
   const normalizedProcess = normalizeRecord(processWithStatus);
 
   ctx.status = 201;
-  ctx.body = { processes: [normalizedProcess], jobs: normalizedJobs };
+  ctx.body = normalizedProcess;
 };
 
 module.exports = create;

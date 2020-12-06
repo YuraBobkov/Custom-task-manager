@@ -1,9 +1,6 @@
 'use strict';
 
-const { prop, pipe, is, map, toPairs, fromPairs } = require('ramda');
 const { parse } = require('qs');
-
-const isString = is(String);
 
 const transformSortValue = (direction) => {
   if (direction === 'asc') {
@@ -15,21 +12,8 @@ const transformSortValue = (direction) => {
   return null;
 };
 
-const getQuery = pipe(
-  prop('querystring'),
-  parse,
-  toPairs,
-  map(([key, value]) => {
-    if (isString(value)) {
-      return [key, parse(value)];
-    }
-
-    return [key, value];
-  }),
-  fromPairs,
-);
-
-const prepareSortParams = (sort) => {
+const prepareSortParams = (ctx) => {
+  const sort = parse(ctx.querystring);
   const entries = Object.entries(sort);
 
   return entries.reduce((acc, entry) => {
@@ -42,6 +26,5 @@ const prepareSortParams = (sort) => {
 };
 
 module.exports = {
-  getQuery,
   prepareSortParams,
 };
