@@ -7,16 +7,15 @@ module.exports = {
   displayName,
   cacheDirectory: './.jestcache',
   setupFilesAfterEnv: ['<rootDir>src/setupTests.ts'],
+  preset: 'ts-jest',
   coverageThreshold: {
     global: {
-      branches: 75,
-      functions: 90,
-      statements: 90,
+      branches: 80,
+      functions: 80,
+      statements: 80,
     },
   },
-  moduleNameMapper: {
-    '^@/(.*)': '<rootDir>/src/$1',
-  },
+
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/server/',
