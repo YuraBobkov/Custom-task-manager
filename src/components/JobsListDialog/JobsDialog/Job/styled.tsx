@@ -10,7 +10,7 @@ const colorMapping: { [key: string]: string } = {
 export const StyledLi = styled(({ status, lookedJob, ...other }) => (
   <li {...other} />
 ))`
-  margin: 10px 0;
+  padding: 5px 0;
   background-color: ${(props) =>
     props.lookedJob ? 'rgba(0, 0, 0, 0.09)' : 'inherit'};
 

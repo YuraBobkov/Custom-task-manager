@@ -1,35 +1,6 @@
-// @ts-nocheck
-
 import { selectById, selectIds } from '../selectors';
 
-const id = '5fcc2b7ca92b731aabb45d9c';
-
-const process = {
-  id,
-  name: 'Unbranded Steel Hat',
-  startTime: 1593852517000,
-  jobsCount: 8,
-  status: 'failed',
-};
-const createState = (value) => ({
-  entities: {
-    processes: {
-      ids: [id],
-      entities: {
-        [id]: value,
-      },
-    },
-  },
-});
-
-const emptyState = {
-  entities: {
-    processes: {
-      ids: [],
-      entities: {},
-    },
-  },
-};
+import { createState, emptyState, process, id } from './test-utils';
 
 describe('processes - selectors', () => {
   it('selectById', () => {

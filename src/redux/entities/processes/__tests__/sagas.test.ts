@@ -6,16 +6,7 @@ import api from '../api';
 import { findProcesses, createProcess, deleteProcess } from '../saga';
 import slice from '../slice';
 import { saveEntities } from '../../actions';
-
-const id = '5fcc2b7ca92b731aabb45d9c';
-
-const process = {
-  id,
-  name: 'Unbranded Steel Hat',
-  startTime: 1593852517000,
-  jobsCount: 8,
-  status: 'failed',
-};
+import { process, id, responseData } from './test-utils';
 
 describe('processes - sagas', () => {
   const params = { sort: 'asc' };
@@ -25,8 +16,8 @@ describe('processes - sagas', () => {
     const saga = findProcesses(action);
 
     expect(saga.next().value).toEqual(call(api.find, params));
-    expect(saga.next({ processes: [process] }).value).toEqual(
-      put(saveEntities({ processes: [process] })),
+    expect(saga.next(responseData).value).toEqual(
+      put(saveEntities(responseData)),
     );
     expect(saga.next()).toEqual({
       done: true,

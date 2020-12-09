@@ -1,35 +1,5 @@
-// @ts-nocheck
-
 import { selectById } from '../selectors';
-
-const id = '9fcc2b7ca92b731aabb45111';
-
-const job = {
-  id,
-  processId: '5fcc2b7ca92b731aabb45d9c',
-  name: 'John',
-  status: 'running',
-};
-
-const createState = (value) => ({
-  entities: {
-    jobs: {
-      ids: [id],
-      entities: {
-        [id]: value,
-      },
-    },
-  },
-});
-
-const emptyState = {
-  entities: {
-    jobs: {
-      ids: [],
-      entities: {},
-    },
-  },
-};
+import { createState, emptyState, job, id } from './test-utils';
 
 describe('jobs - selectors', () => {
   it('selectById', () => {

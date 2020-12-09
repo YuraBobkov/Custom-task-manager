@@ -15,13 +15,12 @@ module.exports = {
       statements: 80,
     },
   },
-
+  testPathIgnorePatterns: ['(.*).test-utils.ts'],
   coveragePathIgnorePatterns: [
     '/node_modules/',
     '/server/',
     '(.*)/styled.ts',
     '(.*)/styled.tsx',
-    '(.*).test-utils.ts',
     'src/utils/api.ts',
   ],
 };

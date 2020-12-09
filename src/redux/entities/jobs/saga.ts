@@ -8,10 +8,6 @@ import api from './api';
 import { FIND_JOBS, FIND_JOB } from './consts';
 import { Job } from './types';
 
-type PayloadActionType = {
-  processId?: string;
-};
-
 export function* findJobs({
   payload: params,
 }: PayloadAction<{
