@@ -13,9 +13,12 @@ import { saveEntities } from '../actions';
 import api from './api';
 import { CREATE_PROCESS, DELETE_PROCESS, FIND_PROCESSES } from './consts';
 import slice from './slice';
+import { Process } from './types';
 
-function* findProcesses({ payload: params }: { payload: object }) {
-  const data = yield call(api.find, params);
+export function* findProcesses({
+  payload: params,
+}: PayloadAction<{ [key: string]: 'asc' | 'des' }>) {
+  const data: { processes: Process[] } = yield call(api.find, params);
   yield put(saveEntities(data));
 }
 
@@ -23,8 +26,8 @@ function* watchFindProcesses() {
   yield takeEvery(FIND_PROCESSES, createTaskSaga(findProcesses));
 }
 
-function* createProcess() {
-  const data = yield call(api.createRecord);
+export function* createProcess() {
+  const data: Process = yield call(api.createRecord);
   yield put(slice.actions.saveProcess(data));
 }
 
@@ -32,7 +35,7 @@ function* watchCreateProcess() {
   yield takeLatest(CREATE_PROCESS, createTaskSaga(createProcess));
 }
 
-function* deleteProcess({ payload: id }: PayloadAction<string>) {
+export function* deleteProcess({ payload: id }: PayloadAction<string>) {
   yield call(api.deleteRecord, id);
   yield put(slice.actions.deleteProcess(id));
 }

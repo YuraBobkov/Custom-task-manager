@@ -5,8 +5,12 @@ import config from 'src/config';
 export const createApi = <T>(name: string) => {
   const url = `${config.apiUrl}/${name}`;
 
+  type FindParams = {
+    [key: string]: any;
+  };
+
   return Object.freeze({
-    find(params?: object): Promise<T[]> {
+    find(params?: FindParams): Promise<T[]> {
       return axios.get(url, { params }).then((res) => res.data);
     },
 

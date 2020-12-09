@@ -11,8 +11,8 @@ type Props = TableCellProps & {
 };
 
 const iconsMapping = {
-  des: <ArrowDropUp fontSize="small" />,
-  asc: <ArrowDropDown fontSize="small" />,
+  asc: <ArrowDropUp fontSize="small" />,
+  des: <ArrowDropDown fontSize="small" />,
 };
 
 const SortableTableCell: FC<Props> = ({ sortName, children, ...rest }) => {

@@ -10,10 +10,13 @@ import { Job } from './types';
 
 type PayloadActionType = {
   processId?: string;
-  name: string;
 };
 
-function* findJobs({ payload: params }: PayloadAction<PayloadActionType>) {
+export function* findJobs({
+  payload: params,
+}: PayloadAction<{
+  processId?: string;
+}>) {
   const data: { jobs: Job[] } = yield call(api.find, params || {});
 
   const jobsIds = map(data.jobs, prop('id'));
@@ -27,7 +30,11 @@ function* findJobs({ payload: params }: PayloadAction<PayloadActionType>) {
 function* watchFindJobs() {
   yield takeEvery(FIND_JOBS, createTaskSaga(findJobs));
 }
-function* findJob({ payload: params }: PayloadAction<PayloadActionType>) {
+export function* findJob({
+  payload: params,
+}: PayloadAction<{
+  name?: string;
+}>) {
   const data: { jobs: Job[] } = yield call(api.find, params || {});
 
   return data.jobs[0];

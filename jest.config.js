@@ -5,9 +5,9 @@ const { name: displayName } = require('./package');
 module.exports = {
   testEnvironment: 'jsdom',
   displayName,
+  modulePaths: ['<rootDir>'],
   cacheDirectory: './.jestcache',
   setupFilesAfterEnv: ['<rootDir>src/setupTests.ts'],
-  preset: 'ts-jest',
   coverageThreshold: {
     global: {
       branches: 80,
@@ -22,5 +22,6 @@ module.exports = {
     '(.*)/styled.ts',
     '(.*)/styled.tsx',
     '(.*).test-utils.ts',
+    'src/utils/api.ts',
   ],
 };

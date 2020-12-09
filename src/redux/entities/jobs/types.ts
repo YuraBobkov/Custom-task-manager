@@ -1,6 +1,6 @@
 export type Job = {
-  id: String;
-  processId: String;
-  name: String;
+  id: string;
+  processId: string;
+  name: string;
   status: 'running' | 'succeed' | 'failed';
 };

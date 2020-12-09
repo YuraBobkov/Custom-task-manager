@@ -5,7 +5,7 @@ import CloseIcon from './CloseIcon';
 import { StyledRoot, StyledWrapper, StyledIconButton } from './styled';
 
 type Props = DialogProps & {
-  onClose(event: any): void;
+  onClose(event: {}): void;
   open: boolean;
 };
 
