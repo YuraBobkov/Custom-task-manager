@@ -20,5 +20,3 @@ package-lock.json
 # misc
 .DS_Store
 
-# local env files
-.env
