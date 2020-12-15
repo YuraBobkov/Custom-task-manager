@@ -7,7 +7,6 @@ const { mongoUrl } = require('../config');
 const client = new MongoClient(mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
-  useCreateIndex: true,
 });
 
 let db = null;
