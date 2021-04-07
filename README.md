@@ -3,8 +3,8 @@
 ## Install
 
 ```sh
-git clone git@github.com:YuraBobkov/TestTask.git
-cd TestTask && yarn install && cd server && yarn install
+git clone git@github.com:YuraBobkov/Custom-task-manager.git
+cd Custom-task-manager && yarn install && cd server && yarn install
 ```
 
 ## Usage
