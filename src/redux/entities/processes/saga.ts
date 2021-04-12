@@ -1,4 +1,5 @@
 import { PayloadAction } from '@reduxjs/toolkit';
+import toast from 'react-hot-toast';
 import {
   call,
   put,
@@ -18,8 +19,12 @@ import { Process } from './types';
 export function* findProcesses({
   payload: params,
 }: PayloadAction<{ [key: string]: 'asc' | 'des' }>) {
-  const data: { processes: Process[] } = yield call(api.find, params);
-  yield put(saveEntities(data));
+  try {
+    const data: { processes: Process[] } = yield call(api.find, params);
+    yield put(saveEntities(data));
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 function* watchFindProcesses() {
@@ -27,8 +32,14 @@ function* watchFindProcesses() {
 }
 
 export function* createProcess() {
-  const data: Process = yield call(api.createRecord);
-  yield put(slice.actions.saveProcess(data));
+  try {
+    const data: Process = yield call(api.createRecord);
+    yield put(slice.actions.saveProcess(data));
+
+    toast.success('Process created');
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 function* watchCreateProcess() {
@@ -36,8 +47,14 @@ function* watchCreateProcess() {
 }
 
 export function* deleteProcess({ payload: id }: PayloadAction<string>) {
-  yield call(api.deleteRecord, id);
-  yield put(slice.actions.deleteProcess(id));
+  try {
+    yield call(api.deleteRecord, id);
+    yield put(slice.actions.deleteProcess(id));
+
+    toast.success('Process deleted');
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 function* watchDeleteProcess() {

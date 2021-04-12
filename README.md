@@ -11,6 +11,7 @@ cd Custom-task-manager && yarn install && cd server && yarn install
 
 ```sh
 # Start server and App
-cd server && yarn start && cd ../ && yarn start
+in root folder run  `yarn start`
+in server folder run `yarn start`
 
 ```

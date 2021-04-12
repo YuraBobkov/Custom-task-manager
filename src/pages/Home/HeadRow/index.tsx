@@ -6,9 +6,7 @@ import SortableTableCell from 'src/components/SortableTableCell';
 const HeadRow: FC = () => {
   return (
     <TableRow>
-      <TableCell padding="none" align="center">
-        Status
-      </TableCell>
+      <TableCell align="center">Status</TableCell>
       <SortableTableCell sortName="name" align="left">
         Name
       </SortableTableCell>

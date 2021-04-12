@@ -3,9 +3,12 @@ import React, { FC } from 'react';
 import { setConfig } from 'react-hot-loader';
 import { hot } from 'react-hot-loader/root';
 import { Provider as ReduxProvider } from 'react-redux';
+import { Toaster } from 'react-hot-toast';
+
 import Router from 'src/components/Router';
 import { store } from 'src/redux';
 import router from 'src/router';
+
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 setConfig({ reloadHooks: false });
@@ -33,6 +36,7 @@ const Root: FC = () => (
       <ThemeProvider theme={{ fontFamily: 'Helvetica Neue' }}>
         <GlobalStyle />
         <Router />
+        <Toaster />
       </ThemeProvider>
     </RoutoProvider>
   </ReduxProvider>

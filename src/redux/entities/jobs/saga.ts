@@ -1,6 +1,8 @@
 import { PayloadAction } from '@reduxjs/toolkit';
 import { call, put, spawn, takeEvery } from 'redux-saga/effects';
 import { map, prop } from 'remeda';
+import toast from 'react-hot-toast';
+
 import { createTaskSaga } from 'src/utils/redux-saga-tasks';
 
 import { saveEntities } from '../actions';
@@ -13,27 +15,36 @@ export function* findJobs({
 }: PayloadAction<{
   processId?: string;
 }>) {
-  const data: { jobs: Job[] } = yield call(api.find, params || {});
+  try {
+    const data: { jobs: Job[] } = yield call(api.find, params || {});
 
-  const jobsIds = map(data.jobs, prop('id'));
-  const jobsNames = map(data.jobs, prop('name'));
+    const jobsIds = map(data.jobs, prop('id'));
+    const jobsNames = map(data.jobs, prop('name'));
 
-  yield put(saveEntities(data));
+    yield put(saveEntities(data));
 
-  return { jobsIds, jobsNames };
+    return { jobsIds, jobsNames };
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 function* watchFindJobs() {
   yield takeEvery(FIND_JOBS, createTaskSaga(findJobs));
 }
+
 export function* findJob({
   payload: params,
 }: PayloadAction<{
   name?: string;
 }>) {
-  const data: { jobs: Job[] } = yield call(api.find, params || {});
+  try {
+    const data: { jobs: Job[] } = yield call(api.find, params || {});
 
-  return data.jobs[0];
+    return data.jobs[0];
+  } catch (error) {
+    toast.error(error.message);
+  }
 }
 
 function* watchFindJob() {

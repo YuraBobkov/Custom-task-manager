@@ -1,3 +1,4 @@
+import { Button } from '@material-ui/core';
 import styled from 'styled-components';
 
 export const Page = styled.main`
@@ -12,4 +13,17 @@ export const Page = styled.main`
 export const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  align-items: flex-start;
+
+  @media (max-width: 560px) {
+    flex-direction: column;
+  }
+`;
+
+export const StyledButton = styled(Button)`
+  margin-bottom: 0;
+
+  @media (max-width: 560px) {
+    margin-bottom: 16px !important;
+  }
 `;

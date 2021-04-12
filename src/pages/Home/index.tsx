@@ -1,4 +1,4 @@
-import { Box, Button } from '@material-ui/core';
+import { Box } from '@material-ui/core';
 import React, { FC, useCallback, useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -13,7 +13,7 @@ import { getIsRunning } from 'src/utils/redux-saga-tasks';
 import ContentRow from './ContentRow';
 import HeadRow from './HeadRow';
 import { useData } from './hooks';
-import { Page, Wrapper } from './styled';
+import { Page, StyledButton, Wrapper } from './styled';
 
 const Home: FC = () => {
   const dispatch = useDispatch();
@@ -32,14 +32,14 @@ const Home: FC = () => {
     <Page>
       <Box clone mb={2}>
         <Wrapper>
-          <Button
+          <StyledButton
             variant="contained"
             color="primary"
             disabled={inProgress}
             onClick={handleCreateProcess}
           >
             Create Process
-          </Button>
+          </StyledButton>
           <Autocomplete />
         </Wrapper>
       </Box>
